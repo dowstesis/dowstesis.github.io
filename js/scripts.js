@@ -4,6 +4,7 @@ var datos; // Variable global para almacenar los datos de la tabla
 var datos2;
 var filtrado = [];
 var xx = 0;
+
 document.getElementById("contenido").innerHTML = recomendaciones();
 
 var rep = document.getElementById("reporte");
