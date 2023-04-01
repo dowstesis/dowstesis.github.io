@@ -1,11 +1,13 @@
 // Empty JS for your own code to be here
+window.onload = function() {
+    // Aquí puedes llamar a la función que quieres que se ejecute automáticamente
+    recomendaciones();
+}
 
 var datos; // Variable global para almacenar los datos de la tabla
 var datos2;
 var filtrado = [];
 var xx = 0;
-
-document.getElementById("contenido").innerHTML = recomendaciones();
 
 var rep = document.getElementById("reporte");
 rep.disabled = true;
