@@ -10,11 +10,12 @@
     text-align: center;
 }
 
-.text-center text-info {
+h1 {
     text-shadow: 1px 2px 2px rgb(146, 146, 153);
     font-weight: bold;
     font-size: 40px;
     padding: 1em;
+    font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
 }
 
 .btn {
