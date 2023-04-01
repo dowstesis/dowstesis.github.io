@@ -2,176 +2,51 @@
 <html>
 
 <head>
-  <title>Aplicativo DOWS</title>
-  <meta charset="utf-8">
-  <style type="text/css">
-    h1 {
-      text-shadow: 1px 2px 2px rgb(146, 146, 153);
-      font-weight: bold;
-      font-size: 34px;
-      font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
-    }
-
-    .button {
-      min-width: 130px;
-      height: 40px;
-      color: #fff;
-      padding: 5px 10px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      position: relative;
-      display: inline-block;
-      outline: none;
-      border-radius: 20px;
-      border: 2px solid #495057;
-      background: #495057;
-    }
-
-    .button:disabled {
-      min-width: 130px;
-      height: 40px;
-      color: #ffffff;
-      padding: 5px 10px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      position: relative;
-      display: inline-block;
-      outline: none;
-      border-radius: 20px;
-      border: 2px solid #51677e;
-      background: #a7a7a7;
-    }
-
-    input {
-      margin-top: 1rem;
-    }
-
-    input::file-selector-button {
-      font-weight: bold;
-      color: rgb(43, 83, 122);
-      padding: 0.5em;
-      border: thin solid grey;
-      border-radius: 3px;
-    }
-
-    table {
-      font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
-      font-size: 12px;
-      margin: 45px;
-      width: auto;
-      text-align: center;
-      border-collapse: collapse;
-    }
-
-    th {
-      font-size: 13px;
-      font-weight: normal;
-      padding: 1em;
-      background: #91a6eb;
-      border-top: 4px solid #aabcfe;
-      border-bottom: 1px solid #fff;
-      color: rgb(0, 0, 0);
-    }
-
-    td {
-      padding: 1em;
-      background: #e8edff;
-      border-bottom: 1px solid #fff;
-      color: #669;
-      border-top: 1px solid black;
-      border: 1px solid black;
-    }
-
-    tr:hover td {
-      background: #d0dafd;
-      color: #339;
-    }
-  </style>
+    <title>Aplicativo DOWS</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=chrome">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
 </head>
 
 <body>
-  <h1>Encontrar posibles pozos candidatos para Tecnología DOWS</h1>
-  <input type="file" id="archivo" class="file-upload-button" accept=".xls,.xlsx">
-  <br><br>
-  <button class="button" onclick="mostrarTabla()">Mostrar tabla completa</button>
-  <button class="button" id="candidatos" onclick="mostrarCandidatos()">Mostrar candidatos</button>
-  <button class="button" id="reporte" onclick="generateReport()">Generar Reporte de Candidatos</button><br><br>
-  <table id="tabla"></table>
-  <script type="text/javascript">
-    var datos; // Variable global para almacenar los datos de la tabla
-    var filtrado = [];
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="text-center text-info">
+                    Encontrar posibles pozos candidatos para Tecnología DOWS
+                </h1>
+                <div class="btn-group btn-group-md" role="group">
 
-    var rep = document.getElementById("reporte");
-    rep.disabled = true;
-    var cand = document.getElementById("candidatos");
-    cand.disabled = true;
+                    <button class="btn btn-secondary" onclick="recomendaciones()" type="button">
+                        Inicio
+                    </button>
+                    <button class="btn btn-secondary" onclick="subirArchivo()" type="button">
+                        Subir Archivo
+                    </button>
+                    <button class="btn btn-secondary" id="datos" onclick="mostrarTabla()" type="button">
+                        Mostrar Datos
+                    </button>
+                    <button class="btn btn-secondary" id="candidatos" onclick="mostrarCandidatos()" type="button">
+                        Mostrar Candidatos
+                    </button>
+                    <button class="btn btn-secondary" id="reporte" onclick="generateReport()" type="button">
+                        Generar Reporte
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="contenido">
+        </div>
+        <div>
+            <span class="badge badge-default">Desarrollado por Harold Silva, Candidato a Msc Ingeniería de Petróleos de
+                la Universidad Surcolombiana</span>
+        </div>
+    </div>
 
-    function mostrarTabla() {
-      var archivo = document.getElementById("archivo").files[0];
-      var lector = new FileReader();
-      lector.readAsArrayBuffer(archivo);
-      lector.onload = function (event) {
-        var data = new Uint8Array(lector.result);
-        var workbook = XLSX.read(data, { type: 'array' });
-        var sheet_name_list = workbook.SheetNames;
-        var sheet = workbook.Sheets[sheet_name_list[0]];
-        var html = XLSX.utils.sheet_to_html(sheet);
-        document.getElementById("tabla").innerHTML = html;
-        datos = XLSX.utils.sheet_to_json(sheet, { header: 1, raw: false }); // Almacenar los datos de la tabla en la variable global
-        cand.disabled = false;
-      }
-    }
-
-    function mostrarCandidatos() {
-      rep.disabled = false;
-      filtrado[0] = new Array(datos[0].length);
-
-      if (!datos) return; // Verificar que se hayan cargado los datos de la tabla
-      var html = '<tr>';
-      for (var j = 0; j < datos[0].length; j++) {// Empezar desde la primer fila (la primera es el encabezado)
-        filtrado[0][j] = datos[0][j];
-        html += '<td>' + datos[0][j] + '</td>';
-      }
-      html += '</tr>';
-      var t = 1;
-      for (var i = 1; i < datos.length; i++) { // Empezar desde la segunda fila (la primera es el encabezado)
-        html += '<tr>';
-        var prodtotal = datos[i][datos[0].indexOf("Prod Total (Bpd)")];
-        var bsw = parseFloat(datos[i][datos[0].indexOf("BS&W (%)")]);
-        var api = datos[i][datos[0].indexOf("API")];
-        if (prodtotal > 1000 && bsw > 0.6 && api > 16) { // Verificar que PF sea mayor a 50
-          filtrado[t] = new Array(datos[0].length);
-          for (var k = 0; k < datos[0].length; k++) {
-            filtrado[t][k] = datos[i][k];
-            html += '<td>' + datos[i][k] + '</td>';
-          }
-          t += 1;
-        }
-        html += '</tr>';
-      }
-      document.getElementById("tabla").innerHTML = html;
-    }
-
-    function generateReport() {
-      // Create new workbook
-      var workbook = XLSX.utils.book_new();
-
-      // Add worksheet with data
-      var worksheet = XLSX.utils.json_to_sheet(filtrado);
-      XLSX.utils.book_append_sheet(workbook, worksheet, "Sheet1");
-
-      // Generate and download .xlsx file
-      XLSX.writeFile(workbook, "report.xlsx");
-    }
-
-    // Attach event listener to button
-    var button = document.getElementById("reporte");
-    button.addEventListener("click", generateReport);
-
-  </script>
-  <script type="text/javascript" src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
-</body>
-
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/scripts.js"></script></body>
+    <script type="text/javascript" src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
 </html>

@@ -1,0 +1,106 @@
+/*Empty CSS file for your own CSS*/
+#contenido {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 75vh;
+}
+
+.container-fluid {
+    text-align: center;
+}
+
+h1 {
+    text-shadow: 1px 2px 2px rgb(146, 146, 153);
+    font-weight: bold;
+    font-size: 34px;
+    padding: 1em;
+    font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+}
+
+.btn {
+    min-width: 130px;
+    height: 40px;
+    color: #fff;
+    padding: 5px 10px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    display: inline-block;
+    outline: none;
+    border-radius: 20px;
+    border: 1px solid #ffffff;
+    background: #798591;
+}
+
+.btn:disabled {
+    min-width: 130px;
+    height: 40px;
+    color: #ffffff;
+    padding: 5px 10px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    display: inline-block;
+    outline: none;
+    border-radius: 20px;
+    border: 1px solid #ffffff;
+    background: #a7a7a7;
+}
+
+input {
+    margin-top: 1rem;
+}
+
+input::file-selector-button {
+    font-weight: bold;
+    color: rgb(43, 83, 122);
+    padding: 0.5em;
+    border: thin solid grey;
+    border-radius: 3px;
+}
+
+.sin-formato td:hover {
+    background-color: aliceblue;
+}
+
+.sin-formato td {
+    background-color: inherit;
+    border: none;
+    font-size: 15px;
+}
+
+table {
+    font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+    font-size: 12px;
+    margin: 45px;
+    width: auto;
+    text-align: center;
+    border-collapse: collapse;
+}
+
+th {
+    font-size: 13px;
+    font-weight: normal;
+    padding: 1em;
+    background: #91a6eb;
+    border-top: 4px solid #aabcfe;
+    border-bottom: 1px solid #fff;
+    color: rgb(0, 0, 0);
+}
+
+td {
+    padding: 1em;
+    background: #e8edff;
+    border-bottom: 1px solid #fff;
+    color: #669;
+    border-top: 1px solid black;
+    border: 1px solid black;
+}
+
+tr:hover td {
+    background: #d0dafd;
+    color: #339;
+}
