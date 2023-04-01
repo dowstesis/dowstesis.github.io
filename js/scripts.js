@@ -3,6 +3,7 @@
 var datos; // Variable global para almacenar los datos de la tabla
 var datos2;
 var filtrado = [];
+recomendaciones();
 
 var xx = 0;
 var rep = document.getElementById("reporte");
