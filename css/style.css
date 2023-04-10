@@ -11,33 +11,35 @@
 }
 
 h1 {
-    text-shadow: 1px 2px 2px rgb(146, 146, 153);
+    text-shadow: 1px 2px 2px rgb(172, 172, 179);
     font-weight: bold;
     font-size: 40px;
     padding: 1em;
-    font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+    font-family: "Luminari";/*"Lucida Sans Unicode", "Lucida Grande", Sans-Serif;*/
+    color: #58626c;
+    padding: 2rem;
 }
 
 .btn {
     min-width: 130px;
     height: 40px;
-    color: #fff;
+    color: #58626c;
     padding: 5px 10px;
     font-weight: bold;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.7s ease;
     position: relative;
     display: inline-block;
     outline: none;
     border-radius: 20px;
-    border: 1px solid #ffffff;
-    background: #798591;
+    border: 2px solid #ffffff;
+    background: #ECC1A1;
 }
 
 .btn:disabled {
     min-width: 130px;
     height: 40px;
-    color: #ffffff;
+    color: #92a2b1;
     padding: 5px 10px;
     font-weight: bold;
     cursor: pointer;
@@ -46,8 +48,8 @@ h1 {
     display: inline-block;
     outline: none;
     border-radius: 20px;
-    border: 1px solid #ffffff;
-    background: #a7a7a7;
+    border: 2px solid #ffffff;
+    background: #f8ddc7;
 }
 
 input {
@@ -63,7 +65,8 @@ input::file-selector-button {
 }
 
 .sin-formato td:hover {
-    background-color: aliceblue;
+    background-color: rgb(208, 232, 255);
+    transition: all 2s ease;
 }
 
 .sin-formato td {
@@ -73,8 +76,8 @@ input::file-selector-button {
 }
 
 table {
-    font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
-    font-size: 12px;
+    font-family: "Luminari";/*"Lucida Sans Unicode", "Lucida Grande", Sans-Serif;*/
+    font-size: 14px;
     margin: 45px;
     width: auto;
     text-align: center;
@@ -82,10 +85,10 @@ table {
 }
 
 th {
-    font-size: 13px;
+    font-size: 14px;
     font-weight: normal;
     padding: 1em;
-    background: #91a6eb;
+    background: #ffffff;
     border-top: 4px solid #aabcfe;
     border-bottom: 1px solid #fff;
     color: rgb(0, 0, 0);
@@ -93,14 +96,22 @@ th {
 
 td {
     padding: 1em;
-    background: #e8edff;
+    background: #F5F1EE;
     border-bottom: 1px solid #fff;
-    color: #669;
+    color: #49515a;
     border-top: 1px solid black;
     border: 1px solid black;
+    font-size: 14px;
 }
 
 tr:hover td {
-    background: #d0dafd;
-    color: #339;
+    background: #ced6f3;
+    color: #58626C;
+    transition: all 1s ease;
+}
+
+#encabezado{
+    font-family: "Lucida Sans Unicode";
+    font-weight: bold;
+    font-size: 14px;
 }

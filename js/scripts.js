@@ -12,7 +12,6 @@ var rep = document.getElementById("reporte");
 rep.disabled = true;
 var cand = document.getElementById("candidatos");
 cand.disabled = true;
-
 var dat = document.getElementById("datos");
 dat.disabled = true;
 
@@ -76,7 +75,7 @@ function mostrarCandidatos() {
     filtrado[0] = new Array(datos[0].length);
 
     if (!datos) return; // Verificar que se hayan cargado los datos de la tabla
-    var html = '<table><tr>';
+    var html = '<table><tr id="encabezado">';
     for (var j = 0; j < datos[0].length; j++) {// Empezar desde la primer fila (la primera es el encabezado)
         filtrado[0][j] = datos[0][j];
         html += '<td>' + datos[0][j] + '</td>';
