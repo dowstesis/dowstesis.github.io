@@ -87,7 +87,9 @@ function mostrarCandidatos() {
         var prodtotal = datos[i][datos[0].indexOf("Prod Total (Bpd)")];
         var bsw = parseFloat(datos[i][datos[0].indexOf("BS&W (%)")]);
         var api = datos[i][datos[0].indexOf("API")];
-        if (prodtotal > 1000 && bsw > 0.6 && api > 16) { // Verificar que PF sea mayor a 50
+        var gas = datos[i][datos[0].indexOf("Prod Gas Anular(Kpcd)")];
+        gas_intake = gas/prodtotal;
+        if (prodtotal > 1000 && bsw > 0.6 && api > 16 && gas_intake < 0.02) { // Verificar que PF sea mayor a 50
             filtrado[t] = new Array(datos[0].length);
             for (var k = 0; k < datos[0].length; k++) {
                 filtrado[t][k] = datos[i][k];
