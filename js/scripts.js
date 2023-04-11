@@ -32,7 +32,7 @@ function recomendaciones() {
     }
     xx += 1;
     var rec = '<table class="sin-formato"><tr> <h1 class="text-center"> Recomendaciones</h1> </tr>'
-    rec += '<tr><td><strong>1.</strong> El archivo que se cargue debe ser formato .xls o .xlsx</td></tr>'
+    rec += '<tr><td><strong>1.</strong> El archivo que contiene los datos debe estar en formato .xls o .xlsx</td></tr>'
     rec += '<tr><td><strong>2.</strong> Los datos de los pozos deben estar en la primer hoja del archivo subido</td></tr>'
     rec += '<tr><td><strong>3.</strong> La variable de Producción Total debe ser llamada: Prod Total (Bpd)</td></tr>'
     rec += '<tr><td><strong>4.</strong> La variable de Corte de Agua debe ser llamada: BS&W (%)</td></tr>'
