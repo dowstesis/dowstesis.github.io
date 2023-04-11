@@ -8,6 +8,7 @@ window.onload = function() {
     // Aquí puedes llamar a la función que quieres que se ejecute automáticamente
     recomendaciones();
 }
+
 var rep = document.getElementById("reporte");
 rep.disabled = true;
 var cand = document.getElementById("candidatos");
@@ -26,11 +27,11 @@ function recomendaciones() {
     }
     xx += 1;
     var rec = '<table class="sin-formato"><tr> <h1 class="text-center"> Recomendaciones</h1> </tr>'
-    rec += '<tr><td>1. La variable de Producción Total debe ser llamada: Prod Total (Bpd)</td></tr>'
-    rec += '<tr><td>2. La variable de Corte de Agua debe ser llamada: BS&W (%)</td></tr>'
-    rec += '<tr><td>3. La variable de Producción de Gas debe ser llamada: Prod Gas Anular (Kpcd)'
+    rec += '<tr><td><strong>1.</strong> La variable de Producción Total debe ser llamada: Prod Total (Bpd)</td></tr>'
+    rec += '<tr><td><strong>2.</strong> La variable de Corte de Agua debe ser llamada: BS&W (%)</td></tr>'
+    rec += '<tr><td><strong>3.</strong> La variable de Producción de Gas debe ser llamada: Prod Gas Anular (Kpcd)'
     rec += '<br><em>esto con fin de calcular el <strong>gas intake = Producción de Gas / Producción Total</strong></em></tr></td>'
-    rec += '<tr><td>4. La variable de grados API debe ser llamada: API</td></tr></table>'
+    rec += '<tr><td><strong>4.</strong> La variable de grados API debe ser llamada: API</td></tr></table>'
     document.getElementById("contenido").innerHTML = rec;
 }
 
