@@ -14,7 +14,6 @@ h1 {
     text-shadow: 1px 2px 2px rgb(172, 172, 179);
     font-weight: bold;
     font-size: 40px;
-    padding: 1em;
     font-family: "Luminari";
     color: #58626c;
     padding: 2rem;
@@ -52,11 +51,7 @@ h1 {
     background: #f8ddc7;
 }
 
-input{
-    vertical-align: center;
-}
-
-#upload{
+input {
     vertical-align: center;
 }
 
@@ -67,7 +62,7 @@ input::file-upload-button {
     background: #dde7f0;
 }
 
-.fa{
+.fa {
     size: 20px;
 }
 
@@ -117,7 +112,7 @@ tr:hover td {
     transition: all 1s ease;
 }
 
-#encabezado{
+#encabezado {
     font-family: "Lucida Sans Unicode";
     font-weight: bold;
     font-size: 14px;

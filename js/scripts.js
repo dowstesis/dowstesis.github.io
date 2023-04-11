@@ -3,9 +3,9 @@ var datos; // Variable global para almacenar los datos de la tabla
 var datos2; // Variable global para almacenar los datos de la tabla
 var filtrado = []; // Arreglo global para guardar los datos de los pozos candidatos
 var xx = 0; // Variable global para dejar habilitados los botones (mostrar tabla - candidatos y reporte)
-            // solo cuando se haya subido un archivo
+// solo cuando se haya subido un archivo
 
-window.onload = function() {
+window.onload = function () {
     // Se ejecuta automáticamente las recomendaciones al entrar a la página web
     recomendaciones();
 }
@@ -61,7 +61,7 @@ function datosxls() {
 
 // Esta función permite mostrar la tabla de datos contenida en el archivo subido
 function mostrarTabla() {
-    if(xx === 0) {
+    if (xx === 0) {
         var archivo = document.getElementById("archivo").files[0];
         datos2 = archivo;
     }
@@ -100,11 +100,11 @@ function mostrarCandidatos() {
         var bsw = parseFloat(datos[i][datos[0].indexOf("BS&W (%)")]);
         var api = datos[i][datos[0].indexOf("API")];
         var gas = datos[i][datos[0].indexOf("Prod Gas Anular (Kpcd)")];
-        gas_intake = gas/prodtotal;
+        gas_intake = gas / prodtotal;
         // Verificar que producción total sea mayor a 1000 bbl/day
         // el corte de agua sea mayor al 60%, la gravedad API sea mayor a 16
         // y la entrada de gas sea menor al 2%
-        if (prodtotal > 1000 && bsw > 0.6 && api > 16 && gas_intake < 0.02) { 
+        if (prodtotal > 1000 && bsw > 0.6 && api > 16 && gas_intake < 0.02) {
             filtrado[t] = new Array(datos[0].length);
             for (var k = 0; k < datos[0].length; k++) {
                 filtrado[t][k] = datos[i][k];
@@ -129,6 +129,23 @@ function generateReport() {
     // Genera y descarga el archivo de excel con nombre report
     XLSX.writeFile(workbook, "report.xlsx");
 }
+
+/*var btnGroup = document.getElementById('groupbtn'); // Toma la división que contiene todos los botones
+var buttons = btnGroup.getElementsByTagName('button'); // Crea un arreglo con la cantidad de bontones
+var activeButton = buttons[0];
+activeButton.classList.add('active');
+
+for (var i = 0; i < buttons.length; i++) {
+    // Indica que en caso de que un botón sea pulsado el estilo que inicialmente tenía
+    // es cambiado por otro para distinguir en qué apartado se encuentra de la web
+    buttons[i].addEventListener('click', function () {
+        if (activeButton) {
+            activeButton.classList.remove('active'); // Quita el estilo del botón activo
+        }
+        this.classList.add('active'); // Agrega el estilo del botón activo
+        activeButton = this;
+    });
+}*/
 
 // Asigna la función de generar reporte al botón
 //var button = document.getElementById("reporte");
