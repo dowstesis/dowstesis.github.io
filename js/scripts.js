@@ -28,7 +28,9 @@ function recomendaciones() {
     var rec = '<table class="sin-formato"><tr> <h1 class="text-center"> Recomendaciones</h1> </tr>'
     rec += '<tr><td>1. La variable de Producción Total debe ser llamada: Prod Total (Bpd)</td></tr>'
     rec += '<tr><td>2. La variable de Corte de Agua debe ser llamada: BS&W (%)</td></tr>'
-    rec += '<tr><td>3. La variable de grados API debe ser llamada: API</td></tr></table>'
+    rec += '<tr><td>3. La variable de Producción de Gas debe ser llamada: Prod Gas Anular (Kpcd)'
+    rec += '<br><em>esto con fin de calcular el <strong>gas intake = Producción de Gas / Producción Total</strong></em></tr></td>'
+    rec += '<tr><td>4. La variable de grados API debe ser llamada: API</td></tr></table>'
     document.getElementById("contenido").innerHTML = rec;
 }
 
