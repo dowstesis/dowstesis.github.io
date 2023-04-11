@@ -64,7 +64,6 @@ function mostrarTabla() {
         var sheet_name_list = workbook.SheetNames;
         var sheet = workbook.Sheets[sheet_name_list[0]];
         var html = XLSX.utils.sheet_to_html(sheet);
-        console.log(html.header)
         document.getElementById("contenido").innerHTML = `<table>${html}</table>`;
         datos = XLSX.utils.sheet_to_json(sheet, { header: 1, raw: false }); // Almacenar los datos de la tabla en la variable global
         cand.disabled = false;
