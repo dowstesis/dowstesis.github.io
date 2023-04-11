@@ -52,27 +52,34 @@ h1 {
     background: #f8ddc7;
 }
 
-input {
-    margin-top: 1rem;
+input{
+    vertical-align: center;
 }
 
-input::file-selector-button {
+#upload{
+    vertical-align: center;
+}
+
+input::file-upload-button {
     font-weight: bold;
     color: rgb(43, 83, 122);
     padding: 0.5em;
-    border: thin solid grey;
-    border-radius: 3px;
+    background: #dde7f0;
+}
+
+.fa{
+    size: 20px;
 }
 
 .sin-formato td:hover {
-    background-color: rgb(208, 232, 255);
+    background-color: #F5F1EE;
     transition: all 2s ease;
 }
 
 .sin-formato td {
     background-color: inherit;
     border: none;
-    font-size: 15px;
+    font-size: 18px;
 }
 
 table {
@@ -105,8 +112,8 @@ td {
 }
 
 tr:hover td {
-    background: #ced6f3;
-    color: #58626C;
+    background: #f7dcc8;
+    color: #000000;
     transition: all 1s ease;
 }
 

@@ -40,7 +40,7 @@ function subirArchivo() {
     var dat = document.getElementById("datos");
     dat.disabled = true;
 
-    document.getElementById("contenido").innerHTML = '<input type="file" id="archivo" onclick="boton()" class="file-upload-button" accept=".xls,.xlsx">';
+    document.getElementById("contenido").innerHTML = '<i class="fa fa-upload"></i> <input type="file" id="archivo" onclick="boton()" class="file-upload-button" accept=".xls,.xlsx">';
 }
 
 function boton() {
@@ -64,6 +64,7 @@ function mostrarTabla() {
         var sheet_name_list = workbook.SheetNames;
         var sheet = workbook.Sheets[sheet_name_list[0]];
         var html = XLSX.utils.sheet_to_html(sheet);
+        console.log(html.header)
         document.getElementById("contenido").innerHTML = `<table>${html}</table>`;
         datos = XLSX.utils.sheet_to_json(sheet, { header: 1, raw: false }); // Almacenar los datos de la tabla en la variable global
         cand.disabled = false;
@@ -87,7 +88,7 @@ function mostrarCandidatos() {
         var prodtotal = datos[i][datos[0].indexOf("Prod Total (Bpd)")];
         var bsw = parseFloat(datos[i][datos[0].indexOf("BS&W (%)")]);
         var api = datos[i][datos[0].indexOf("API")];
-        var gas = datos[i][datos[0].indexOf("Prod Gas Anular(Kpcd)")];
+        var gas = datos[i][datos[0].indexOf("Prod Gas Anular (Kpcd)")];
         gas_intake = gas/prodtotal;
         if (prodtotal > 1000 && bsw > 0.6 && api > 16 && gas_intake < 0.02) { // Verificar que PF sea mayor a 50
             filtrado[t] = new Array(datos[0].length);
