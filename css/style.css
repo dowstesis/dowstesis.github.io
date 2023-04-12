@@ -93,6 +93,7 @@ th {
     border-top: 4px solid #aabcfe;
     border-bottom: 1px solid #fff;
     color: rgb(0, 0, 0);
+    padding: 3px;
 }
 
 td {
