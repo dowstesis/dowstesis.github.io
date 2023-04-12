@@ -89,6 +89,7 @@ function mostrarTabla() {
         for (var i = 1; i < datos.length; i++) { // Empezar desde la segunda fila (la primera es el encabezado)
             html2 += '<tr>';
             for (var k = 0; k < datos[0].length; k++) {
+                if(datos[i][k]==='undefined') alert('no hay datos')
                 html2 += '<td>' + datos[i][k] + '</td>';
             }
             html2 += '</tr>';
