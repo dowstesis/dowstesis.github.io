@@ -93,7 +93,6 @@ th {
     border-top: 4px solid #aabcfe;
     border-bottom: 1px solid #fff;
     color: rgb(0, 0, 0);
-    padding: 3px;
 }
 
 td {
@@ -103,6 +102,7 @@ td {
     border-top: 1px solid black;
     border: 1px solid black;
     font-size: 15px;
+    padding: 3px;
 }
 
 tr:hover td {
