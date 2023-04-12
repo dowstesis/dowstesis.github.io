@@ -80,7 +80,7 @@ input::file-upload-button {
 table {
     font-family: "Luminari";
     font-size: 15px;
-    /*margin: 45px;*/
+    margin: 45px;
     width: auto;
     text-align: center;
     border-collapse: collapse;
@@ -93,6 +93,8 @@ th {
     border-top: 4px solid #aabcfe;
     border-bottom: 1px solid #fff;
     color: rgb(0, 0, 0);
+    padding: 5px;
+    width: auto;
 }
 
 td {
@@ -101,8 +103,9 @@ td {
     color: #49515a;
     border-top: 1px solid black;
     border: 1px solid black;
+    width: auto;
     font-size: 15px;
-    padding: 3px;
+    padding: 5px;
 }
 
 tr:hover td {
