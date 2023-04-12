@@ -89,7 +89,6 @@ table {
 th {
     font-size: 14px;
     font-weight: normal;
-    padding: 1em;
     background: #ffffff;
     border-top: 4px solid #aabcfe;
     border-bottom: 1px solid #fff;
@@ -97,7 +96,6 @@ th {
 }
 
 td {
-    padding: 1em;
     background: #F5F1EE;
     border-bottom: 1px solid #fff;
     color: #49515a;
