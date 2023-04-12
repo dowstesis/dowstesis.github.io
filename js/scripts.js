@@ -77,9 +77,25 @@ function mostrarTabla() {
         var sheet_name_list = workbook.SheetNames;
         var sheet = workbook.Sheets[sheet_name_list[0]];
         var html = XLSX.utils.sheet_to_html(sheet);
-        document.getElementById("contenido").innerHTML = `<table>${html}</table>`; // Muestra la tabla de datos
+        //document.getElementById("contenido").innerHTML = `<table>${html}</table>`; // Muestra la tabla de datos
         datos = XLSX.utils.sheet_to_json(sheet, { header: 1, raw: false }); // Almacenar los datos de la tabla en la variable global
-        cand.disabled = false; // Se habilita el botón de mostrar pozos candidatos
+
+        if (!datos) return alert('Los datos no se cargaron correctamente, intente de nuevo.'); // Verificar que se hayan cargado los datos de la tabla
+        var html2 = '<table><tr id="encabezado">';
+        for (var j = 0; j < datos[0].length; j++) {// Empezar desde la primer fila (la primera es el encabezado)
+            html2 += '<td>' + datos[0][j] + '</td>';
+        }
+        html2 += '</tr>';
+        for (var i = 1; i < datos.length; i++) { // Empezar desde la segunda fila (la primera es el encabezado)
+            html2 += '<tr>';
+            for (var k = 0; k < datos[0].length; k++) {
+                html2 += '<td>' + datos[i][k] + '</td>';
+            }
+            html2 += '</tr>';
+        }
+        html2 += '</table>';
+        document.getElementById("contenido").innerHTML = html2; // Mostrar la tabla con los daots filtrados
+        cand.disabled = false; // Se habilita el botón de generar reporte con los datos filtrados
     }
 }
 
