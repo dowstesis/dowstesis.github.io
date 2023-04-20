@@ -19,7 +19,7 @@ cand.disabled = true;
 var dat = document.getElementById("datos");
 dat.disabled = true;
 var ben = document.getElementById("beneficio");
-//ben.disabled = true;
+ben.disabled = true;
 
 // Función que muestra las recomendaciones más relevantes
 function recomendaciones() {
@@ -28,7 +28,7 @@ function recomendaciones() {
         rep.disabled = true;
         cand.disabled = true;
         dat.disabled = true;
-        //ben.disabled = true;
+        ben.disabled = true;
     }
     xx += 1;
     var rec = '<div class="main"><h1 class="text-center"> Recomendaciones</h1>'
