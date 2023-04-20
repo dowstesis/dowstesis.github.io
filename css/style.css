@@ -1,9 +1,15 @@
 /*Empty CSS file for your own CSS*/
+
+body{
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
 #contenido {
-    display: flex;
     justify-content: center;
     align-items: center;
     min-height: 75vh;
+    margin-top: 10px;
+    padding: 10px;
 }
 
 .container-fluid {
@@ -14,9 +20,12 @@ h1 {
     text-shadow: 1px 2px 2px rgb(172, 172, 179);
     font-weight: bold;
     font-size: 40px;
-    font-family: "Luminari";
     color: #58626c;
     padding: 2rem;
+}
+
+label{
+    font-size: 1.3rem;
 }
 
 .btn {
@@ -118,4 +127,46 @@ tr:hover td {
     font-family: "Lucida Sans Unicode";
     font-weight: bold;
     font-size: 14px;
+}
+
+.upload{
+    width: 380px;
+    background-color: rgb(233, 227, 227);
+    padding: 1rem;
+    border: 0.1rem dashed gray;
+    border-radius: 20px; 
+    margin: 250px auto;
+}
+
+.element{
+    max-width: 700px;
+    margin: 100px auto 10px auto;
+    text-align: start;
+    padding: 10px;
+    background-color: #f7f3e5;
+}
+
+.rec{
+    line-height: 50px;
+    font-size: 1rem;
+}
+
+.main{
+    margin: 50px auto;
+}
+
+.input{
+    margin-left: 10px;
+}
+
+.button{
+    padding: 1px;
+}
+.beneficio{
+    background-color: #e2be9c;
+    color: black;
+    font-size: 1.1rem;
+    padding: 20px 10px;
+    border: 2px solid transparent;
+    line-height: 0px;
 }

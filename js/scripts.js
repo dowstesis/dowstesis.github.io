@@ -18,40 +18,38 @@ var cand = document.getElementById("candidatos");
 cand.disabled = true;
 var dat = document.getElementById("datos");
 dat.disabled = true;
+var ben = document.getElementById("beneficio");
+//ben.disabled = true;
 
 // Función que muestra las recomendaciones más relevantes
 function recomendaciones() {
     // se deshabilitan los botones solo cuando se refresca la web dado que el valor de xx vuelve a 0
     if (xx == 0) {
-        var rep = document.getElementById("reporte");
         rep.disabled = true;
-        var cand = document.getElementById("candidatos");
         cand.disabled = true;
-        var dat = document.getElementById("datos");
         dat.disabled = true;
+        //ben.disabled = true;
     }
     xx += 1;
-    var rec = '<table class="sin-formato"><tr> <h1 class="text-center"> Recomendaciones</h1> </tr>'
-    rec += '<tr><td><strong>1.</strong> El archivo que contiene los datos debe estar en formato .xls o .xlsx</td></tr>'
-    rec += '<tr><td><strong>2.</strong> Los datos de los pozos deben estar en la primer hoja del archivo subido</td></tr>'
-    rec += '<tr><td><strong>3.</strong> La variable de Producción Total debe ser llamada: Prod Total (Bpd)</td></tr>'
-    rec += '<tr><td><strong>4.</strong> La variable de Corte de Agua debe ser llamada: BS&W (%)</td></tr>'
-    rec += '<tr><td><strong>5.</strong> La variable de Producción de Gas debe ser llamada: Prod Gas Anular (Kpcd)'
-    rec += '<br><em>esto con fin de calcular el <strong>gas intake = Producción de Gas / Producción Total</strong></em></tr></td>'
-    rec += '<tr><td><strong>6.</strong> La variable de grados API debe ser llamada: API</td></tr></table>'
+    var rec = '<div class="main"><h1 class="text-center"> Recomendaciones</h1>'
+    rec += '<div class="rec"><strong>1.</strong> El archivo que contiene los datos debe estar en formato .xls o .xlsx'
+    rec += '<br><strong>2.</strong> Los datos de los pozos deben estar en la primer hoja del archivo subido'
+    rec += '<br><strong>3.</strong> La variable de Producción Total debe ser llamada: Prod Total (Bpd)'
+    rec += '<br><strong>4.</strong> La variable de Corte de Agua debe ser llamada: BS&W (%)'
+    rec += '<br><strong>5.</strong> La variable de Producción de Gas debe ser llamada: Prod Gas Anular (Kpcd)'
+    rec += '<br><em>esto con fin de calcular el <strong>gas intake = Producción de Gas / Producción Total</strong></em>'
+    rec += '<br><strong>6.</strong> La variable de grados API debe ser llamada: API</div></div>'
     document.getElementById("contenido").innerHTML = rec;
 }
 
 // Función que permite establecer el botón para la subida del archivo de excel con los datos a filtrar
 function subirArchivo() {
-    var rep = document.getElementById("reporte");
     rep.disabled = true;
-    var cand = document.getElementById("candidatos");
     cand.disabled = true;
-    var dat = document.getElementById("datos");
     dat.disabled = true;
-    var html = '<i class="fa fa-upload"></i> <input type="file" id="archivo" onclick="datosxls()"';
-    html += 'class="file-upload-button" accept=".xls,.xlsx">';
+    ben.disabled = true;
+    var html = '<div class="upload"><i class="fa fa-upload"></i> <input type="file" id="archivo" onclick="datosxls()"';
+    html += 'class="file-upload-button" accept=".xls,.xlsx"></div>';
     document.getElementById("contenido").innerHTML = html;
 }
 
@@ -91,7 +89,6 @@ function mostrarTabla() {
             for (var k = 0; k < datos[0].length; k++) {
                 if (datos[i][k] === undefined) {
                     html2 += '<td>' + '-' + '</td>';
-                    console.log(html2);
                 } else {
                     html2 += '<td>' + datos[i][k] + '</td>';
                 }
@@ -107,6 +104,7 @@ function mostrarTabla() {
 // Función que permite filtrar los datos del archivo según las condiciones para la selección de pozos
 function mostrarCandidatos() {
     rep.disabled = false; // Se habilita el botón de generar reporte con los datos filtrados
+    ben.disabled = false;
     filtrado[0] = new Array(datos[0].length);
 
     if (!datos) return alert('Los datos no se cargaron correctamente, intente de nuevo.'); // Verificar que se hayan cargado los datos de la tabla
@@ -153,23 +151,19 @@ function generateReport() {
     XLSX.writeFile(workbook, "report.xlsx");
 }
 
-/*var btnGroup = document.getElementById('groupbtn'); // Toma la división que contiene todos los botones
-var buttons = btnGroup.getElementsByTagName('button'); // Crea un arreglo con la cantidad de bontones
-var activeButton = buttons[0];
-activeButton.classList.add('active');
+function beneficioEsperado(){
+    var benEsp = '<div class="element"><label>Precio del Crudo: [$] </label> <input type="number" class="input costo-crudo" placeholder="1.0">';
+    benEsp += '<br><label>Barriles adicionales de crudo a producir: [STB/D] </label> <input type="number" class="input barr-crudo" placeholder="200">';
+    benEsp += '<br><label>Barriles acumulados de agua inyectada: [STB] </label> <input type="number" class="input barr-agua" placeholder="300">';
+    benEsp += '<br><label>Costo diario de operación: [$/D] </label> <input type="number" class="input costo-oper" placeholder="1000"></div>';
+    benEsp += '<div class="button"><button class="btn beneficio" onclick="clickear()">Calcular beneficio</button></div>';
+    document.getElementById("contenido").innerHTML = benEsp;
+}
 
-for (var i = 0; i < buttons.length; i++) {
-    // Indica que en caso de que un botón sea pulsado el estilo que inicialmente tenía
-    // es cambiado por otro para distinguir en qué apartado se encuentra de la web
-    buttons[i].addEventListener('click', function () {
-        if (activeButton) {
-            activeButton.classList.remove('active'); // Quita el estilo del botón activo
-        }
-        this.classList.add('active'); // Agrega el estilo del botón activo
-        activeButton = this;
-    });
-}*/
+function clickear(){
+    var costoCrudo = document.querySelector(".costo-crudo");
+    console.log(costoCrudo.value);
+}
 
-// Asigna la función de generar reporte al botón
-//var button = document.getElementById("reporte");
-//button.addEventListener("click", generateReport);
+//var calcula = document.querySelector("#calcular");
+//calcula.onclick = clickear;
