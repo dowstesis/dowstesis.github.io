@@ -152,18 +152,25 @@ function generateReport() {
 }
 
 function beneficioEsperado(){
-    var benEsp = '<div class="element"><label>Precio del Crudo: [$] </label> <input type="number" class="input costo-crudo" placeholder="1.0">';
-    benEsp += '<br><label>Barriles adicionales de crudo a producir: [STB/D] </label> <input type="number" class="input barr-crudo" placeholder="200">';
-    benEsp += '<br><label>Barriles acumulados de agua inyectada: [STB] </label> <input type="number" class="input barr-agua" placeholder="300">';
-    benEsp += '<br><label>Costo diario de operación: [$/D] </label> <input type="number" class="input costo-oper" placeholder="1000"></div>';
+    var benEsp = '<div class="element"><label>Precio del Crudo: [$] </label> <input type="number" class="costo-crudo" placeholder="1.0">';
+    benEsp += '<br><label>Barriles adicionales de crudo a producir: [STB/D] </label> <input type="number" class="barr-crudo" placeholder="200">';
+    benEsp += '<br><label>Barriles acumulados de agua inyectada: [STB] </label> <input type="number" class="barr-agua" placeholder="300">';
+    benEsp += '<br><label>Costo diario de operación: [$/D] </label> <input type="number" class="costo-oper" placeholder="1000"></div>';
     benEsp += '<div class="button"><button class="btn beneficio" onclick="clickear()">Calcular beneficio</button></div>';
     document.getElementById("contenido").innerHTML = benEsp;
 }
 
 function clickear(){
-    var costoCrudo = document.querySelector(".costo-crudo");
-    console.log(costoCrudo.value);
-}
+    let costoCrudo = document.querySelector(".costo-crudo");
+    let barrCrudo = document.querySelector(".barr-crudo");
+    let barrAgua = document.querySelector(".barr-agua");
+    let costoDia = document.querySelector(".costo-oper");
 
-//var calcula = document.querySelector("#calcular");
-//calcula.onclick = clickear;
+    console.log(costoCrudo);
+
+    if(costoCrudo.value == "" || barrCrudo.value == "" || barrAgua.value == "" || costoDia.value == ""){
+        alert('Ingrese todos los datos, existen espacios en blanco')
+    }else{
+        alert('hola');
+    }
+}
