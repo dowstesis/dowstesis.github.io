@@ -72,20 +72,25 @@ function mostrarTabla() {
     lector.readAsArrayBuffer(archivo);
     lector.onload = function (event) {
         var data = new Uint8Array(lector.result);
-        var workbook = XLSX.read(data, { type: 'array' });
+        var workbook = XLSX.read(data, {
+            type: 'array'
+        });
         var sheet_name_list = workbook.SheetNames;
         var sheet = workbook.Sheets[sheet_name_list[0]];
         var html = XLSX.utils.sheet_to_html(sheet);
         //document.getElementById("contenido").innerHTML = `<table>${html}</table>`; // Muestra la tabla de datos
-        datos = XLSX.utils.sheet_to_json(sheet, { header: 1, raw: false }); // Almacenar los datos de la tabla en la variable global
+        datos = XLSX.utils.sheet_to_json(sheet, {
+            header: 1,
+            raw: false
+        }); // Almacenar los datos de la tabla en la variable global
 
         if (!datos) return alert('Los datos no se cargaron correctamente, intente de nuevo.'); // Verificar que se hayan cargado los datos de la tabla
         var html2 = '<div class="table"><table><tr>';
-        for (var j = 0; j < datos[0].length; j++) {// Empezar desde la primer fila (la primera es el encabezado)
+        for (let j = 0; j < datos[0].length; j++) { // Empezar desde la primer fila (la primera es el encabezado)
             html2 += '<th>' + datos[0][j] + '</th>';
         }
         html2 += '</tr>';
-        for (var i = 1; i < datos.length; i++) { // Empezar desde la segunda fila (la primera es el encabezado)
+        for (let i = 1; i < datos.length; i++) { // Empezar desde la segunda fila (la primera es el encabezado)
             html2 += '<tr>';
             for (var k = 0; k < datos[0].length; k++) {
                 if (datos[i][k] === undefined) {
@@ -110,13 +115,13 @@ function mostrarCandidatos() {
 
     if (!datos) return alert('Los datos no se cargaron correctamente, intente de nuevo.'); // Verificar que se hayan cargado los datos de la tabla
     var html = '<div class="table"><table><tr>';
-    for (var j = 0; j < datos[0].length; j++) {// Empezar desde la primer fila (la primera es el encabezado)
+    for (let j = 0; j < datos[0].length; j++) { // Empezar desde la primer fila (la primera es el encabezado)
         filtrado[0][j] = datos[0][j];
         html += '<th>' + datos[0][j] + '</th>';
     }
     html += '</tr>';
     var t = 1;
-    for (var i = 1; i < datos.length; i++) { // Empezar desde la segunda fila (la primera es el encabezado)
+    for (let i = 1; i < datos.length; i++) { // Empezar desde la segunda fila (la primera es el encabezado)
         html += '<tr>';
         var prodtotal = datos[i][datos[0].indexOf("Prod Total (Bpd)")];
         var bsw = parseFloat(datos[i][datos[0].indexOf("BS&W (%)")]);
@@ -152,25 +157,83 @@ function generateReport() {
     XLSX.writeFile(workbook, "report.xlsx");
 }
 
-function beneficioEsperado(){
-    var benEsp = '<div class="form"><label>Precio del Crudo: [$] </label> <input type="number" class="costo-crudo" placeholder="78.68">';
-    benEsp += '<br><label>Barriles adicionales de crudo a producir: [STB/D] </label> <input type="number" class="barr-crudo" placeholder="200">';
-    benEsp += '<br><label>Barriles acumulados de agua inyectada: [STB] </label> <input type="number" class="barr-agua" placeholder="300">';
+function beneficioEsperado() {
+    var benEsp = '<div class="form"><label>Precio del Crudo: [$] </label> <input type="number" class="costo-crudo" placeholder="78.68" >';
+    benEsp += '<br><label>Barriles adicionales de crudo a producir: [STB/D] </label> <input type="number" class="barr-crudo" disabled>';
+    benEsp += '<br><label>Barriles acumulados de agua inyectada: [STB/D] </label> <input type="number" class="barr-agua" disabled>';
     benEsp += '<br><label>Costo diario de operación: [$/D] </label> <input type="number" class="costo-oper" placeholder="1000">';
+    benEsp += '<br><label>Costo de la disposición final del agua: [$/bbl] </label> <input type="number" class="costo-dispw" placeholder="2.25">';
+    benEsp += '<br><label>Costo tratamiento del agua: [$/bbl] </label> <input type="number" class="costo-tratw" placeholder="10-32">';
+    benEsp += '<br><label>Costo levantamiento del agua: [$/bbl] </label> <input type="number" class="costo-levw" placeholder="8-20">';
+    benEsp += '<br><label>Impuestos por producción: [%] </label> <input type="number" class="impuesto" placeholder="10-20">';
     benEsp += '<br><button class="button beneficio" onclick="clickear()">Calcular beneficio</button>';
     benEsp += '<div id="resultado"></div></div>';
     document.getElementById("contenido").innerHTML = benEsp;
 }
 
-function clickear(){
-    let costoCrudo = document.querySelector(".costo-crudo");
+function clickear() {
+    let costoCrudo = parseFloat(document.querySelector(".costo-crudo").value);
     let barrCrudo = document.querySelector(".barr-crudo");
     let barrAgua = document.querySelector(".barr-agua");
-    let costoDia = document.querySelector(".costo-oper");
+    let costoDispW = parseFloat(document.querySelector(".costo-dispw").value);
+    let costoTratW = parseFloat(document.querySelector(".costo-tratw").value);
+    let costoLevW = parseFloat(document.querySelector(".costo-levw").value);
+    let impuesto = parseFloat(document.querySelector(".impuesto").value);
+    let cost_dia = parseFloat(document.querySelector(".costo-oper").value);
 
-    if(costoCrudo.value == "" || barrCrudo.value == "" || barrAgua.value == "" || costoDia.value == ""){
+    if (costoCrudo == "" || cost_dia == "" || costoDispW == "" || costoTratW == "" || costoLevW == "" || impuesto == "") {
         document.getElementById("resultado").innerHTML = "Hay espacios en blanco.";
-    }else{
-        
+    } else {
+        var prod_crudo_dia = 0;
+        var prod_agua_dia = 0;
+        for (let i = 1; i < filtrado.length; i++) { // Empezar desde la segunda fila (la primera es el encabezado)
+            let prodtotal = filtrado[i][filtrado[0].indexOf("Prod Total (Bpd)")];
+            let bsw = parseFloat(filtrado[i][filtrado[0].indexOf("BS&W (%)")]);
+
+            prod_crudo = prodtotal * (1 - bsw / 100);
+            prod_agua = prodtotal * bsw / 100;
+
+            prod_crudo_dia += prod_crudo;
+            prod_agua_dia += prod_agua;
+        }
+
+        //el aumento de la producción de crudo se estimará en un 70%
+        let prod_crudo_nueva = 1.7 * prod_crudo_dia;
+        //la reducción de agua se estima en un 80%
+        let prod_agua_nueva = prod_agua_dia * 0.2;
+        red_agua = prod_agua_dia - prod_agua_nueva;
+        //nuevo bsw luego del aumento del crudo y disminución del agua producida
+        bsw_despues_dows = 100 * prod_agua_nueva / (prod_crudo_nueva + prod_agua_nueva);
+
+
+        //producción adicional de crudo:
+        adic_crudo = prod_crudo_nueva - prod_crudo_dia;
+
+        //beneficio por la producción adicional de crudo
+        bef_crudo = adic_crudo * costoCrudo;
+        tax = bef_crudo * impuesto / 100;
+        disp_agua = prod_agua_nueva * (costoDispW + costoLevW + costoTratW);
+
+        console.log(disp_agua);
+        console.log(prod_agua_nueva);
+        console.log(costoDispW);
+
+        console.log(costoLevW);
+        console.log(costoTratW);
+
+        console.log((costoDispW + costoLevW+ costoTratW));
+
+
+        //beneficio esperado usando la ecuación de Johkio
+        benef_esperado = bef_crudo + disp_agua - tax - cost_dia;
+
+        //los valores estimados de producción de crudo adicional y de agua al final
+        barrCrudo.value = Math.round(adic_crudo);
+        barrAgua.value = Math.round(red_agua);
+
+        let html = `Si la producción aumenta 70% y el corte de agua se reduce 80%, el BSW nuevo será de ${Math.round(bsw_despues_dows)}%,`;
+        html += ` además, el beneficio esperado será de $${Math.round(benef_esperado)} /D`;
+        document.getElementById("resultado").innerHTML = html; // Mostrar la tabla con los daots filtrados
+
     }
 }
