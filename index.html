@@ -5,50 +5,44 @@
     <title>Aplicativo DOWS</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=chrome">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="./css/style.css">
 </head>
 
 <body>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-12">
-                <h1>
-                    Encontrar posibles pozos candidatos para Tecnología DOWS
-                </h1>
-                <div class="btn-group btn-group-md" role="group" id="groupbtn">
-                    <button class="btn btn-secondary" onclick="recomendaciones()" type="button">
-                        Inicio
-                    </button>
-                    <button class="btn btn-secondary" onclick="subirArchivo()" type="button">
-                        Subir Archivo
-                    </button>
-                    <button class="btn btn-secondary" id="datos" onclick="mostrarTabla()" type="button">
-                        Mostrar Datos
-                    </button>
-                    <button class="btn btn-secondary" id="candidatos" onclick="mostrarCandidatos()" type="button">
-                        Mostrar Candidatos
-                    </button>
-                    <button class="btn btn-secondary" id="reporte" onclick="generateReport()" type="button">
-                        Generar Reporte
-                    </button>
-                    <button class="btn btn-secondary" id="beneficio" onclick="beneficioEsperado()" type="button">
-                        Beneficio Esperado
-                    </button>
-                </div>
-            </div>
+    <div class="container">
+        <div style="display: flex; justify-content: center; flex-wrap:wrap">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/Escudo_de_la_Universidad_Surcolombiana.svg/1200px-Escudo_de_la_Universidad_Surcolombiana.svg.png"
+                alt="">
+            <h1 class="title">Selección de Candidatos para Tecnología DOWS</h1>
         </div>
-        <div id="contenido"></div>
-        <div style="padding-bottom: 1rem;">
-            <span class="badge badge-default" style="font-size: 14px">Desarrollado por Harold Silva, Candidato a Msc Ingeniería de Petróleos de
-                la Universidad Surcolombiana</span>
+        <div class="buttons">
+            <button class="button" onclick="recomendaciones()">
+                Inicio
+            </button>
+            <button class="button" onclick="subirArchivo()">
+                Subir Archivo
+            </button>
+            <button class="button" id="datos" onclick="mostrarTabla()">
+                Mostrar Datos
+            </button>
+            <button class="button" id="candidatos" onclick="mostrarCandidatos()">
+                Mostrar Candidatos
+            </button>
+            <button class="button" id="reporte" onclick="generateReport()">
+                Generar Reporte
+            </button>
+            <button class="button" id="beneficio" onclick="beneficioEsperado()">
+                Beneficio Esperado
+            </button>
         </div>
+        <div id="contenido">
+    
+        </div>
+    
     </div>
+    <footer class="footer">Realizado por: Harold Silva, MSC en Ingeniería de Petróleos</footer>
 
-    <script src="js/jquery.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/scripts.js"></script></body>
+    <script src="js/scripts.js"></script>
     <script type="text/javascript" src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
+</body>
 </html>

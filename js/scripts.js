@@ -5,6 +5,7 @@ var filtrado = []; // Arreglo global para guardar los datos de los pozos candida
 var xx = 0; // Variable global para dejar habilitados los botones (mostrar tabla - candidatos y reporte)
 // solo cuando se haya subido un archivo
 
+
 window.onload = function () {
     // Se ejecuta automáticamente las recomendaciones al entrar a la página web
     recomendaciones();
@@ -48,7 +49,7 @@ function subirArchivo() {
     cand.disabled = true;
     dat.disabled = true;
     ben.disabled = true;
-    var html = '<div class="upload"><i class="fa fa-upload"></i> <input type="file" id="archivo" onclick="datosxls()"';
+    var html = '<div class="upload"><input type="file" id="archivo" onclick="datosxls()"';
     html += 'class="file-upload-button" accept=".xls,.xlsx"></div>';
     document.getElementById("contenido").innerHTML = html;
 }
@@ -79,9 +80,9 @@ function mostrarTabla() {
         datos = XLSX.utils.sheet_to_json(sheet, { header: 1, raw: false }); // Almacenar los datos de la tabla en la variable global
 
         if (!datos) return alert('Los datos no se cargaron correctamente, intente de nuevo.'); // Verificar que se hayan cargado los datos de la tabla
-        var html2 = '<table><tr id="encabezado">';
+        var html2 = '<div class="table"><table><tr>';
         for (var j = 0; j < datos[0].length; j++) {// Empezar desde la primer fila (la primera es el encabezado)
-            html2 += '<td>' + datos[0][j] + '</td>';
+            html2 += '<th>' + datos[0][j] + '</th>';
         }
         html2 += '</tr>';
         for (var i = 1; i < datos.length; i++) { // Empezar desde la segunda fila (la primera es el encabezado)
@@ -95,7 +96,7 @@ function mostrarTabla() {
             }
             html2 += '</tr>';
         }
-        html2 += '</table>';
+        html2 += '</table></div>';
         document.getElementById("contenido").innerHTML = html2; // Mostrar la tabla con los daots filtrados
         cand.disabled = false; // Se habilita el botón de generar reporte con los datos filtrados
     }
@@ -108,10 +109,10 @@ function mostrarCandidatos() {
     filtrado[0] = new Array(datos[0].length);
 
     if (!datos) return alert('Los datos no se cargaron correctamente, intente de nuevo.'); // Verificar que se hayan cargado los datos de la tabla
-    var html = '<table><tr id="encabezado">';
+    var html = '<div class="table"><table><tr>';
     for (var j = 0; j < datos[0].length; j++) {// Empezar desde la primer fila (la primera es el encabezado)
         filtrado[0][j] = datos[0][j];
-        html += '<td>' + datos[0][j] + '</td>';
+        html += '<th>' + datos[0][j] + '</th>';
     }
     html += '</tr>';
     var t = 1;
@@ -135,7 +136,7 @@ function mostrarCandidatos() {
         }
         html += '</tr>';
     }
-    html += '</table>';
+    html += '</table></div>';
     document.getElementById("contenido").innerHTML = html; // Mostrar la tabla con los daots filtrados
 }
 
@@ -152,11 +153,12 @@ function generateReport() {
 }
 
 function beneficioEsperado(){
-    var benEsp = '<div class="element"><label>Precio del Crudo: [$] </label> <input type="number" class="costo-crudo" placeholder="1.0">';
+    var benEsp = '<div class="form"><label>Precio del Crudo: [$] </label> <input type="number" class="costo-crudo" placeholder="78.68">';
     benEsp += '<br><label>Barriles adicionales de crudo a producir: [STB/D] </label> <input type="number" class="barr-crudo" placeholder="200">';
     benEsp += '<br><label>Barriles acumulados de agua inyectada: [STB] </label> <input type="number" class="barr-agua" placeholder="300">';
-    benEsp += '<br><label>Costo diario de operación: [$/D] </label> <input type="number" class="costo-oper" placeholder="1000"></div>';
-    benEsp += '<div class="button"><button class="btn beneficio" onclick="clickear()">Calcular beneficio</button></div>';
+    benEsp += '<br><label>Costo diario de operación: [$/D] </label> <input type="number" class="costo-oper" placeholder="1000">';
+    benEsp += '<br><button class="button beneficio" onclick="clickear()">Calcular beneficio</button>';
+    benEsp += '<div id="resultado"></div></div>';
     document.getElementById("contenido").innerHTML = benEsp;
 }
 
@@ -166,11 +168,9 @@ function clickear(){
     let barrAgua = document.querySelector(".barr-agua");
     let costoDia = document.querySelector(".costo-oper");
 
-    console.log(costoCrudo);
-
     if(costoCrudo.value == "" || barrCrudo.value == "" || barrAgua.value == "" || costoDia.value == ""){
-        alert('Ingrese todos los datos, existen espacios en blanco')
+        document.getElementById("resultado").innerHTML = "Hay espacios en blanco.";
     }else{
-        alert('hola');
+        
     }
 }
