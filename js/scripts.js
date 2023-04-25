@@ -192,10 +192,11 @@ function benefEsperado() {
     var impuesto = parseFloat(document.querySelector(".impuesto").value);
     var cost_dia = parseFloat(document.querySelector(".costo-oper").value);
 
+    //se condiciona que todos los campos que se deben ingresar no estén en blanco, en caso tal mostrará un mensaje 
     if (isNaN(costoCrudo) || isNaN(cost_dia) || isNaN(costoDispW) || isNaN(costoTratW) || isNaN(costoLevW) || isNaN(impuesto)) {
         document.getElementById("resultado").innerHTML = "Hay espacios en blanco.";
     } else {
-
+        // se establecen variables para establecer la producción total de crudo y agua en un día
         var prod_crudo_dia = 0;
         var prod_agua_dia = 0;
 
@@ -203,6 +204,7 @@ function benefEsperado() {
             let prodtotal = filtrado[i][filtrado[0].indexOf("Prod Total (Bpd)")];
             let bsw = parseFloat(filtrado[i][filtrado[0].indexOf("BS&W (%)")]);
 
+            //se calcula la producción de crudo y agua de acuerdo al BSW por cada pozo candidato
             prod_crudo = prodtotal * (1 - bsw / 100);
             prod_agua = prodtotal * bsw / 100;
 
@@ -210,6 +212,8 @@ function benefEsperado() {
             prod_agua_dia += prod_agua;
         }
 
+        //se establece el tipo de pronostico deseado: optimista, pesimista o neutral, el cual entrará
+        //en el siguiente condicional
         var pronostico = document.querySelector("#opciones").value;
 
         if (pronostico == "optimista") {
