@@ -116,10 +116,12 @@ function mostrarTabla() {
 // Función que permite filtrar los datos del archivo según las condiciones para la selección de pozos
 function mostrarCandidatos() {
     rep.disabled = false; // Se habilita el botón de generar reporte con los datos filtrados
-    ben.disabled = false;
+    ben.disabled = false; // Se habilita el botón de beneficio esperado con los datos filtrados
     filtrado[0] = new Array(datos[0].length);
 
-    if (!datos) return alert('Los datos no se cargaron correctamente, intente de nuevo.'); // Verificar que se hayan cargado los datos de la tabla
+    // Verificar que se hayan cargado los datos de la tabla
+
+    if (!datos) return alert('Los datos no se cargaron correctamente, intente de nuevo.'); 
     var html = '<div class="table"><table><tr>';
     for (let j = 0; j < datos[0].length; j++) { // Empezar desde la primer fila (la primera es el encabezado)
         filtrado[0][j] = datos[0][j];
@@ -129,6 +131,7 @@ function mostrarCandidatos() {
     var t = 1;
     for (let i = 1; i < datos.length; i++) { // Empezar desde la segunda fila (la primera es el encabezado)
         html += '<tr>';
+        //se toma el dato correspondiente a la columna especificada, sea prod total, api, etc.
         var prodtotal = datos[i][datos[0].indexOf("Prod Total (Bpd)")];
         var bsw = parseFloat(datos[i][datos[0].indexOf("BS&W (%)")]);
         var api = datos[i][datos[0].indexOf("API")];
@@ -148,7 +151,7 @@ function mostrarCandidatos() {
         html += '</tr>';
     }
     html += '</table></div>';
-    document.getElementById("contenido").innerHTML = html; // Mostrar la tabla con los daots filtrados
+    document.getElementById("contenido").innerHTML = html; // Mostrar la tabla con los datos filtrados
 }
 
 function generateReport() {
