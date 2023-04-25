@@ -5,7 +5,8 @@
 }
 
 body {
-    background-image: linear-gradient(to bottom, #3ab5b0 0%, #3d99be 31%, #56317a 100%);
+    background-image: linear-gradient(to bottom, #3ab5b0 0%, 
+    #3d99be 31%, #56317a 100%);
     font-family: Arial, sans-serif;
     color: #333;
     min-height: 100vh;
@@ -205,7 +206,9 @@ tr:nth-child(even):hover {
 }
 
 .footer {
-    background-image: linear-gradient(to right, rgba(214, 100, 243, 0.5), white, rgba(131, 100, 243, 0.5));
+    background-image: linear-gradient(to right, 
+    rgba(214, 100, 243, 0.5), white,
+     rgba(131, 100, 243, 0.5));
     color: rgb(0, 0, 0);
     font-weight: bold;
     font-size: 1rem;

@@ -267,8 +267,8 @@ function clickear() {
 
         } else {
 
-            //el aumento de la producción de crudo se estimará en un 30%
-            let prod_crudo_nueva = 1.3 * prod_crudo_dia;
+            //el aumento de la producción de crudo se estimará en un 20%
+            let prod_crudo_nueva = 1.2 * prod_crudo_dia;
             //la reducción de agua se estima en un 20%
             let prod_agua_nueva = prod_agua_dia * 0.8;
             red_agua = prod_agua_dia - prod_agua_nueva;
