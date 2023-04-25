@@ -214,16 +214,6 @@ function clickear() {
         tax = bef_crudo * impuesto / 100;
         disp_agua = prod_agua_nueva * (costoDispW + costoLevW + costoTratW);
 
-        console.log(disp_agua);
-        console.log(prod_agua_nueva);
-        console.log(costoDispW);
-
-        console.log(costoLevW);
-        console.log(costoTratW);
-
-        console.log((costoDispW + costoLevW+ costoTratW));
-
-
         //beneficio esperado usando la ecuación de Johkio
         benef_esperado = bef_crudo + disp_agua - tax - cost_dia;
 
