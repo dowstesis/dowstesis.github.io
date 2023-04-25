@@ -128,10 +128,10 @@ function mostrarCandidatos() {
         var api = datos[i][datos[0].indexOf("API")];
         var gas = datos[i][datos[0].indexOf("Prod Gas Anular (Kpcd)")];
         gas_intake = gas / prodtotal;
-        // Verificar que producción total sea mayor a 1000 bbl/day
+        // Verificar que producción total sea mayor a 500 bbl/day
         // el corte de agua sea mayor al 60%, la gravedad API sea mayor a 16
         // y la entrada de gas sea menor al 2%
-        if (prodtotal > 1000 && bsw > 0.6 && api > 16 && gas_intake < 0.02) {
+        if (prodtotal > 500 && bsw > 0.6 && api > 16 && gas_intake < 0.02) {
             filtrado[t] = new Array(datos[0].length);
             for (var k = 0; k < datos[0].length; k++) {
                 filtrado[t][k] = datos[i][k];
