@@ -11,7 +11,7 @@ window.onload = function () {
     recomendaciones();
 }
 
-// Deshabilitar los botones de reporte, candidatos y mostrar los datos del archivo seleccionado
+// Deshabilitar los botones de reporte, candidatos, mostrar los datos y beneficio del archivo seleccionado
 // con el fin de que solo funcionen cuando se haya subido un archivo válido
 var rep = document.getElementById("reporte");
 rep.disabled = true;
@@ -63,11 +63,13 @@ function datosxls() {
 // Esta función permite mostrar la tabla de datos contenida en el archivo subido
 function mostrarTabla() {
     if (xx === 0) {
+        //escoge el archivo subido y lo guarda en la variable archivo
         var archivo = document.getElementById("archivo").files[0];
         datos2 = archivo;
     }
     xx += 1;
     archivo = datos2;
+    //permite la lectura de los datos desde el archivo de excel
     var lector = new FileReader();
     lector.readAsArrayBuffer(archivo);
     lector.onload = function (event) {
@@ -78,18 +80,22 @@ function mostrarTabla() {
         var sheet_name_list = workbook.SheetNames;
         var sheet = workbook.Sheets[sheet_name_list[0]];
         var html = XLSX.utils.sheet_to_html(sheet);
-        //document.getElementById("contenido").innerHTML = `<table>${html}</table>`; // Muestra la tabla de datos
+        // Almacenar los datos de la tabla en la variable global datos
         datos = XLSX.utils.sheet_to_json(sheet, {
             header: 1,
             raw: false
-        }); // Almacenar los datos de la tabla en la variable global
+        }); 
 
-        if (!datos) return alert('Los datos no se cargaron correctamente, intente de nuevo.'); // Verificar que se hayan cargado los datos de la tabla
+        // Verificar que se hayan cargado los datos de la tabla
+        if (!datos) return alert('Los datos no se cargaron correctamente, intente de nuevo.'); 
+
+        //muestra el encabezado de los datos proporcionados en el excel
         var html2 = '<div class="table"><table><tr>';
         for (let j = 0; j < datos[0].length; j++) { // Empezar desde la primer fila (la primera es el encabezado)
             html2 += '<th>' + datos[0][j] + '</th>';
         }
         html2 += '</tr>';
+        //muestra cada uno de los datos correspondiente a los pozos
         for (let i = 1; i < datos.length; i++) { // Empezar desde la segunda fila (la primera es el encabezado)
             html2 += '<tr>';
             for (var k = 0; k < datos[0].length; k++) {
@@ -102,8 +108,8 @@ function mostrarTabla() {
             html2 += '</tr>';
         }
         html2 += '</table></div>';
-        document.getElementById("contenido").innerHTML = html2; // Mostrar la tabla con los daots filtrados
-        cand.disabled = false; // Se habilita el botón de generar reporte con los datos filtrados
+        document.getElementById("contenido").innerHTML = html2; // Mostrar la tabla completa
+        cand.disabled = false; // Se habilita el botón de candidatos para poder filtrar la tabla
     }
 }
 
@@ -246,7 +252,7 @@ function clickear() {
 
             //producción adicional de crudo:
             adic_crudo = prod_crudo_nueva - prod_crudo_dia;
-            
+
             console.log(adic_crudo)
 
             //beneficio por la producción adicional de crudo
@@ -297,6 +303,6 @@ function clickear() {
 
         }
 
-        
+
     }
 }
