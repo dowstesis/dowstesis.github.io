@@ -166,26 +166,30 @@ function beneficioEsperado() {
     benEsp += '<br><label>Costo tratamiento del agua: [$/bbl] </label> <input type="number" class="costo-tratw" placeholder="10-32">';
     benEsp += '<br><label>Costo levantamiento del agua: [$/bbl] </label> <input type="number" class="costo-levw" placeholder="8-20">';
     benEsp += '<br><label>Impuestos por producción: [%] </label> <input type="number" class="impuesto" placeholder="10-20">';
+    benEsp += '<br><label for="opciones">Seleccione el tipo de pronóstico deseado: </label><select name="opciones" id="opciones">';
+    benEsp += '<option value="optimista">Optimista</option><option value="neutral">Neutral</option><option value="pesimista">Pesimista</option></select>';
     benEsp += '<br><button class="button beneficio" onclick="clickear()">Calcular beneficio</button>';
     benEsp += '<div id="resultado"></div></div>';
     document.getElementById("contenido").innerHTML = benEsp;
 }
 
 function clickear() {
-    let costoCrudo = parseFloat(document.querySelector(".costo-crudo").value);
-    let barrCrudo = document.querySelector(".barr-crudo");
-    let barrAgua = document.querySelector(".barr-agua");
-    let costoDispW = parseFloat(document.querySelector(".costo-dispw").value);
-    let costoTratW = parseFloat(document.querySelector(".costo-tratw").value);
-    let costoLevW = parseFloat(document.querySelector(".costo-levw").value);
-    let impuesto = parseFloat(document.querySelector(".impuesto").value);
-    let cost_dia = parseFloat(document.querySelector(".costo-oper").value);
+    var costoCrudo = parseFloat(document.querySelector(".costo-crudo").value);
+    var barrCrudo = document.querySelector(".barr-crudo");
+    var barrAgua = document.querySelector(".barr-agua");
+    var costoDispW = parseFloat(document.querySelector(".costo-dispw").value);
+    var costoTratW = parseFloat(document.querySelector(".costo-tratw").value);
+    var costoLevW = parseFloat(document.querySelector(".costo-levw").value);
+    var impuesto = parseFloat(document.querySelector(".impuesto").value);
+    var cost_dia = parseFloat(document.querySelector(".costo-oper").value);
 
-    if (costoCrudo == "" || cost_dia == "" || costoDispW == "" || costoTratW == "" || costoLevW == "" || impuesto == "") {
+    if (isNaN(costoCrudo) || isNaN(cost_dia) || isNaN(costoDispW) || isNaN(costoTratW) || isNaN(costoLevW) || isNaN(impuesto)) {
         document.getElementById("resultado").innerHTML = "Hay espacios en blanco.";
     } else {
+
         var prod_crudo_dia = 0;
         var prod_agua_dia = 0;
+
         for (let i = 1; i < filtrado.length; i++) { // Empezar desde la segunda fila (la primera es el encabezado)
             let prodtotal = filtrado[i][filtrado[0].indexOf("Prod Total (Bpd)")];
             let bsw = parseFloat(filtrado[i][filtrado[0].indexOf("BS&W (%)")]);
@@ -197,33 +201,102 @@ function clickear() {
             prod_agua_dia += prod_agua;
         }
 
-        //el aumento de la producción de crudo se estimará en un 70%
-        let prod_crudo_nueva = 1.7 * prod_crudo_dia;
-        //la reducción de agua se estima en un 80%
-        let prod_agua_nueva = prod_agua_dia * 0.2;
-        red_agua = prod_agua_dia - prod_agua_nueva;
-        //nuevo bsw luego del aumento del crudo y disminución del agua producida
-        bsw_despues_dows = 100 * prod_agua_nueva / (prod_crudo_nueva + prod_agua_nueva);
+        var pronostico = document.querySelector("#opciones").value;
+
+        if (pronostico == "optimista") {
+
+            //el aumento de la producción de crudo se estimará en un 70%
+            let prod_crudo_nueva = 1.7 * prod_crudo_dia;
+            //la reducción de agua se estima en un 80%
+            let prod_agua_nueva = prod_agua_dia * 0.2;
+            red_agua = prod_agua_dia - prod_agua_nueva;
+            //nuevo bsw luego del aumento del crudo y disminución del agua producida
+            bsw_despues_dows = 100 * prod_agua_nueva / (prod_crudo_nueva + prod_agua_nueva);
 
 
-        //producción adicional de crudo:
-        adic_crudo = prod_crudo_nueva - prod_crudo_dia;
+            //producción adicional de crudo:
+            adic_crudo = prod_crudo_nueva - prod_crudo_dia;
 
-        //beneficio por la producción adicional de crudo
-        bef_crudo = adic_crudo * costoCrudo;
-        tax = bef_crudo * impuesto / 100;
-        disp_agua = prod_agua_nueva * (costoDispW + costoLevW + costoTratW);
+            //beneficio por la producción adicional de crudo
+            bef_crudo = adic_crudo * costoCrudo;
+            tax = bef_crudo * impuesto / 100;
+            disp_agua = red_agua * (costoDispW + costoLevW + costoTratW);
 
-        //beneficio esperado usando la ecuación de Johkio
-        benef_esperado = bef_crudo + disp_agua - tax - cost_dia;
+            //beneficio esperado usando la ecuación de Johkio
+            benef_esperado = bef_crudo + disp_agua - tax - cost_dia;
 
-        //los valores estimados de producción de crudo adicional y de agua al final
-        barrCrudo.value = Math.round(adic_crudo);
-        barrAgua.value = Math.round(red_agua);
+            //los valores estimados de producción de crudo adicional y de agua al final
+            barrCrudo.value = Math.round(adic_crudo);
+            barrAgua.value = Math.round(red_agua);
 
-        let html = `Si la producción aumenta 70% y el corte de agua se reduce 80%, el BSW nuevo será de ${Math.round(bsw_despues_dows)}%,`;
-        html += ` además, el beneficio esperado será de $${Math.round(benef_esperado)} /D`;
-        document.getElementById("resultado").innerHTML = html; // Mostrar la tabla con los daots filtrados
+            let html = `Si la producción aumenta 70% y el corte de agua se reduce 80%, el BSW nuevo será de ${Math.round(bsw_despues_dows)}%,`;
+            html += ` además, el beneficio esperado será de $${Math.round(benef_esperado)} /D`;
+            document.getElementById("resultado").innerHTML = html;
 
+        } else if (pronostico == "neutral") {
+
+            //el aumento de la producción de crudo se estimará en un 50%
+            let prod_crudo_nueva = 1.5 * prod_crudo_dia;
+            //la reducción de agua se estima en un 50%
+            let prod_agua_nueva = prod_agua_dia * 0.5;
+            red_agua = prod_agua_dia - prod_agua_nueva;
+            //nuevo bsw luego del aumento del crudo y disminución del agua producida
+            bsw_despues_dows = 100 * prod_agua_nueva / (prod_crudo_nueva + prod_agua_nueva);
+
+
+            //producción adicional de crudo:
+            adic_crudo = prod_crudo_nueva - prod_crudo_dia;
+            
+            console.log(adic_crudo)
+
+            //beneficio por la producción adicional de crudo
+            bef_crudo = adic_crudo * costoCrudo;
+            tax = bef_crudo * impuesto / 100;
+            disp_agua = red_agua * (costoDispW + costoLevW + costoTratW);
+
+            //beneficio esperado usando la ecuación de Johkio
+            benef_esperado = bef_crudo + disp_agua - tax - cost_dia;
+
+            //los valores estimados de producción de crudo adicional y de agua al final
+            barrCrudo.value = Math.round(adic_crudo);
+            barrAgua.value = Math.round(red_agua);
+
+            let html = `Si la producción aumenta 50% y el corte de agua se reduce 50%, el BSW nuevo será de ${Math.round(bsw_despues_dows)}%,`;
+            html += ` además, el beneficio esperado será de $${Math.round(benef_esperado)} /D`;
+            document.getElementById("resultado").innerHTML = html;
+
+        } else {
+
+            //el aumento de la producción de crudo se estimará en un 30%
+            let prod_crudo_nueva = 1.3 * prod_crudo_dia;
+            //la reducción de agua se estima en un 20%
+            let prod_agua_nueva = prod_agua_dia * 0.8;
+            red_agua = prod_agua_dia - prod_agua_nueva;
+            //nuevo bsw luego del aumento del crudo y disminución del agua producida
+            bsw_despues_dows = 100 * prod_agua_nueva / (prod_crudo_nueva + prod_agua_nueva);
+
+
+            //producción adicional de crudo:
+            adic_crudo = prod_crudo_nueva - prod_crudo_dia;
+
+            //beneficio por la producción adicional de crudo
+            bef_crudo = adic_crudo * costoCrudo;
+            tax = bef_crudo * impuesto / 100;
+            disp_agua = red_agua * (costoDispW + costoLevW + costoTratW);
+
+            //beneficio esperado usando la ecuación de Johkio
+            benef_esperado = bef_crudo + disp_agua - tax - cost_dia;
+
+            //los valores estimados de producción de crudo adicional y de agua al final
+            barrCrudo.value = Math.round(adic_crudo);
+            barrAgua.value = Math.round(red_agua);
+
+            let html = `Si la producción aumenta 30% y el corte de agua se reduce 20%, el BSW nuevo será de ${Math.round(bsw_despues_dows)}%,`;
+            html += ` además, el beneficio esperado será de $${Math.round(benef_esperado)} /D`;
+            document.getElementById("resultado").innerHTML = html;
+
+        }
+
+        
     }
 }
