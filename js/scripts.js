@@ -177,12 +177,12 @@ function beneficioEsperado() {
     benEsp += '<br><label>Impuestos por producción: [%] </label> <input type="number" class="impuesto" placeholder="10-20">';
     benEsp += '<br><label for="opciones">Seleccione el tipo de pronóstico deseado: </label><select name="opciones" id="opciones">';
     benEsp += '<option value="optimista">Optimista</option><option value="neutral">Neutral</option><option value="pesimista">Pesimista</option></select>';
-    benEsp += '<br><button class="button beneficio" onclick="clickear()">Calcular beneficio</button>';
+    benEsp += '<br><button class="button beneficio" onclick="benefEsperado()">Calcular beneficio</button>';
     benEsp += '<div id="resultado"></div></div>';
     document.getElementById("contenido").innerHTML = benEsp;
 }
 
-function clickear() {
+function benefEsperado() {
     var costoCrudo = parseFloat(document.querySelector(".costo-crudo").value);
     var barrCrudo = document.querySelector(".barr-crudo");
     var barrAgua = document.querySelector(".barr-agua");
